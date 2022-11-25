@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binge Watch</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <div id="main-app">
+        <div id="search">
+            <h1><u><b>SEARCH YOUR FAVOURITE MOVIES</b></u></h1>
+            <input type="text" id="srch" />
+            <button id="btn" onclick="load()">Search</button>
+
+        </div>
+        <div class="form1">
+            <form action="" class="form-control">
+                <fieldset class="color-changer">
+                  <label for="light"></label>
+                  <input type="radio" name="theme" id="light" checked>
+                  <label for="babyPink"></label>
+                  <input type="radio" name="theme" id="babyPink">
+                  <label for="blue"></label>
+                  <input type="radio" name="theme" id="blue">
+                  <label for="orange"></label>
+                  <input type="radio" name="theme" id="orange">
+                  <label for="dark"></label>
+                  <input type="radio" name="theme" id="dark">
+                </fieldset>
+              </form>
+        </div>
+
+
+
+
+        <div id="app">
+
+        </div>
+    </div>
+
+    <script>
+        function load() {
+            const x = document.getElementById("srch")
+            fetch('https://api.tvmaze.com/search/shows?q=' + x.value).then(res => res.json()).then(
+                res => {
+                    console.log(res[0].show.image.medium)
+                    var t = "";
+                    res.map((r) => {
+                        if (r.show.image != null)
+                            t += '<img src="' + r.show.image.medium + '" alt="" width="260" height="320">'
+                    })
+                    document.getElementById('app').innerHTML = t;
+
+                }
+            )
+        }
+    </script>
+</body>
+
+</html>
